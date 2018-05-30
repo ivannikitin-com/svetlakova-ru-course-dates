@@ -41,10 +41,7 @@ class SVETLAKOVA_CD_Plugin
 		$this->url = plugin_dir_url( __FILE__ );
 		
 		// Автозагрузка классов
-		spl_autoload_register( array( $this, 'autoload' ) );
-
-		// Активация плагина
-		//register_activation_hook( __FILE__, 'SVETLAKOVA_CD_User::registerRoles' );		
+		spl_autoload_register( array( $this, 'autoload' ) );	
 		
 		// Хуки
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );

@@ -74,7 +74,7 @@ class SVETLAKOVA_CD_Settings extends SVETLAKOVA_CD__Base
 	public function isAttributeEnabled()
 	{
 		$value = (bool) get_option( SVETLAKOVA_CD . '_enable_attr' );
-		return apply_filters( SVETLAKOVA_CD . '_enable_attr', $value );
+		return (bool) apply_filters( SVETLAKOVA_CD . '_enable_attr', $value );
  	}
 	
 	/**
@@ -84,9 +84,20 @@ class SVETLAKOVA_CD_Settings extends SVETLAKOVA_CD__Base
 	public function isSchemaEnabled()
 	{
 		$value = (bool) get_option( SVETLAKOVA_CD . '_enable_schema' );
-		return apply_filters( SVETLAKOVA_CD . '_enable_schema', $value );
+		return (bool) apply_filters( SVETLAKOVA_CD . '_enable_schema', $value );
  	}	
 
+	/**
+	 * Вовзращает продолжительность курса в днях 
+	 * @retun int
+	 */
+	public function getDuration()
+	{
+		$value = (int) get_option( SVETLAKOVA_CD . '_duration' );
+		return (int) apply_filters( SVETLAKOVA_CD . '_duration', $value );
+ 	}	
+	
+	
 	/* -------------------------- Отображение настроек -------------------------- */
 	/**
 	 * Добавляет новую панель в настройки WooCommerce
@@ -135,7 +146,15 @@ class SVETLAKOVA_CD_Settings extends SVETLAKOVA_CD__Base
 				'css'  => 'height:6em',
 				'id'   => SVETLAKOVA_CD . '_dates',
 			),
-			'attribute' => array(
+			'duration' => array(
+				'name' => __( 'Продолжительность курса', SVETLAKOVA_CD ),
+				'type' => 'text',
+				'default' => '5',
+				'desc' => __( 'Продолжительность курса в днях', SVETLAKOVA_CD ),
+				'css'  => 'width:5em',
+				'id'   => SVETLAKOVA_CD . '_duration',
+			),
+		   'attribute' => array(
 				'name' => __( 'Вывод даты в свойствах товара', SVETLAKOVA_CD ),
 				'type' => 'checkbox',
 				'default' => true,

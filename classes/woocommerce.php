@@ -137,9 +137,22 @@ class SVETLAKOVA_CD_WooCommerce extends SVETLAKOVA_CD__Base
 			'@type'		=> 'Event',
 			'name'		=> $product->get_name(),
 			'startDate'	=> date( 'Y-m-dTH:i', $this->date ),
+			'endDate'	=> date( 'Y-m-dTH:i', $this->date + $this->plugin->settings->getDuration() * DAY_IN_SECONDS ),
+			'image'		=> wp_get_attachment_url( $product->get_image_id() ),
+			'description'=> wpautop( do_shortcode( $product->get_short_description() ? $product->get_short_description() : $product->get_description() ) ),
+			'performer'	=> array(
+				'@type' 	=> 'Organization',
+				'name'		=> get_bloginfo( 'name' ),				
+			),
 			'location'	=> array(
 				'@type' 	=> 'Place',
 				'name'		=> get_bloginfo( 'name' ),
+				'address'	=> array(
+					'addressCountry'	=> get_option( 'woocommerce_default_country', '' ),
+					'postalCode'		=> get_option( 'woocommerce_store_postcode', '' ),
+					'addressLocality'	=> get_option( 'woocommerce_store_city', '' ),
+					'streetAddress'		=> get_option( 'woocommerce_store_address', '' ) . ' ' . get_option( 'woocommerce_store_address_2', '' ),
+				),
 			),
 		);
 	}	
@@ -155,8 +168,8 @@ class SVETLAKOVA_CD_WooCommerce extends SVETLAKOVA_CD__Base
 			return;
 		
 		// Собираем все вместе
-		$this->event['offers'] = $this->offers;
-		$data = wc_clean( $this->event );
+		$this->event['offers'] = $this->offers;		
+		$data = wc_clean( apply_filters( SVETLAKOVA_CD . '_schema_markup', $this->event )  );
 		if ( $data ) 
 		{
 			echo '<script type="application/ld+json">' . wp_json_encode( $data ) . '</script>';
