@@ -6,6 +6,8 @@
  * Version: 1.0
  * Author: Иван Никитин и партнеры
  * Author URI: https://ivannikitin.com
+ * GitHub Plugin URI: ivannikitin-com/svetlakova-ru-course-dates
+ * GitHub Plugin URI: https://github.com/ivannikitin-com/svetlakova-ru-course-dates
 */
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
